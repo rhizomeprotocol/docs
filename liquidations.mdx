@@ -1,0 +1,20 @@
+---
+title: "Liquidations"
+description: "When a Rhizome borrow position can be liquidated and what liquidation does."
+---
+
+A position becomes liquidatable when its borrowed assets exceed the value allowed by its collateral and market LLTV.
+
+A liquidator repays some or all of the borrower's debt and receives collateral in return. The core applies a liquidation incentive derived from the market LLTV, subject to the implementation's cap. Liquidation calls can specify either the amount of collateral to seize or the borrow shares to repay.
+
+Liquidations are permissionless: the protocol does not assign a specific liquidator. Successful execution depends on a third party detecting the position and obtaining the loan asset needed for repayment.
+
+## Oracle freshness
+
+Rhizome's guarded market oracle reverts when a monitored feed is stale or invalid. Because liquidation requires a price, a stale feed freezes liquidation for that market until a valid, fresh price is available. Borrowers can still repay debt.
+
+## Shortfall
+
+If seized collateral cannot cover all debt, the core can recognize the remaining amount as bad debt. That loss reduces the assets backing lenders' supply shares in the affected market.
+
+TODO: Document production liquidation service availability and supported execution routes when they are publicly operated and verified.

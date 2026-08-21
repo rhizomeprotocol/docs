@@ -1,0 +1,33 @@
+---
+title: "How Rhizome Works"
+description: "The flow between lenders, borrowers, markets, collateral, oracles, rates, and liquidations."
+---
+
+Rhizome organizes lending into isolated markets. A market supports one loan asset and one collateral asset under a fixed oracle, interest rate model, and liquidation loan-to-value ratio (LLTV).
+
+## Basic flow
+
+1. A lender supplies the market's loan asset and receives supply shares.
+2. A borrower supplies the market's collateral asset.
+3. The oracle values the collateral in units of the loan asset.
+4. The borrower can borrow up to the limit set by the collateral value and LLTV.
+5. The interest rate model updates the borrow rate based on market utilization. Interest increases borrower debt and lender assets over time.
+6. If debt grows too large relative to collateral value, the position becomes liquidatable. A liquidator repays debt and receives collateral with a protocol-defined incentive.
+
+The market holds accounting in the Morpho singleton contract. A market is not a separate deployed pool contract.
+
+## Isolation
+
+Positions and accounting are scoped to a market ID. Liquidity supplied to one market is not available to another market, even when both use the same loan asset.
+
+Market isolation limits cross-market accounting exposure, but it does not remove shared dependencies. Markets may share the same core contract, interest rate model, tokens, oracle feeds, RPC infrastructure, or liquidation venues.
+
+## What differs on Rootstock
+
+The lending and liquidation accounting follows the pinned Morpho Blue implementation. Rhizome differs in deployment environment and configuration:
+
+- transactions settle on Rootstock;
+- supported tokens are Rootstock token contracts;
+- initial markets use Rhizome-selected parameters;
+- market oracles are wrapped by Rhizome's `StaleGuardedOracle`;
+- offchain data is indexed from Rootstock events.

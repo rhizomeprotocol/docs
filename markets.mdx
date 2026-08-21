@@ -1,0 +1,32 @@
+---
+title: "Markets"
+description: "How isolated Rhizome markets are defined and identified."
+---
+
+A Rhizome market is defined by five immutable parameters:
+
+| Parameter | Meaning |
+| --- | --- |
+| Loan token | The asset lenders supply and borrowers receive |
+| Collateral token | The asset borrowers post as security |
+| Oracle | The contract that prices collateral in loan-token terms |
+| Interest rate model (IRM) | The contract that determines the borrow rate |
+| LLTV | The threshold at which liquidation becomes possible |
+
+The market ID is derived from the encoded parameters:
+
+```text
+marketId = keccak256(abi.encode(loanToken, collateralToken, oracle, irm, lltv))
+```
+
+Changing any parameter produces a different market. Existing market parameters cannot be edited after creation.
+
+## Market creation
+
+Anyone can call `createMarket`, but the chosen IRM and LLTV must first be enabled in the core. Permissionless creation means a market's existence is not an endorsement of its tokens, oracle, liquidity, or parameters.
+
+## Initial markets
+
+The canonical deployment manifest records four initial markets using RIF or WRBTC as collateral and USDRIF or USDT0 as the loan asset. RIF markets use a 50% LLTV; WRBTC markets use a 77% LLTV.
+
+See [Contract Addresses](/contract-addresses) for the manifest and verification rules.

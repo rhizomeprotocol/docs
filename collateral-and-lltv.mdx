@@ -1,0 +1,18 @@
+---
+title: "Collateral and LLTV"
+description: "How collateral value and liquidation loan-to-value limits constrain borrowing."
+---
+
+Collateral secures a borrow position. Each market accepts exactly one collateral token and uses its configured oracle to value that token in units of the loan token.
+
+LLTV means liquidation loan-to-value. It sets the maximum debt relative to collateral value before a position can be liquidated.
+
+For example, at a 77% LLTV, collateral valued at 100 units of the loan asset supports at most 77 units of debt at that instant. Borrowing to the limit leaves no buffer for interest accrual or adverse price movement.
+
+## Immutable per market
+
+LLTV is part of the market ID and cannot be changed for an existing market. Creating a market with another LLTV creates a separate market with separate liquidity and positions.
+
+The deployed core accepts only LLTV values enabled by its owner. Enabled does not mean recommended for every collateral and oracle combination.
+
+<Warning>LLTV is a liquidation threshold, not a target borrowing level. Users must choose their own safety buffer.</Warning>

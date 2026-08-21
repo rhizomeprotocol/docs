@@ -1,0 +1,40 @@
+---
+title: "Risks"
+description: "The main risks of lending, borrowing, and integrating with Rhizome."
+---
+
+Using Rhizome can result in partial or total loss. Market isolation narrows some exposures but does not remove risk.
+
+## Smart contract risk
+
+An error in the Morpho core, interest rate model, oracle contracts, Rhizome wrapper, tokens, or integrations could cause incorrect accounting, frozen actions, or loss. Upstream reviews do not automatically cover Rhizome-specific deployment and oracle code.
+
+TODO: Add independent Rhizome audit reports if and when they are published.
+
+## Oracle risk
+
+An oracle can be stale, unavailable, manipulated, misconfigured, or fresh but wrong. Rhizome rejects stale monitored feeds, but the guard does not bound a fresh answer against another price source. USDRIF is treated as USD 1 in the initial oracle configuration, creating depeg exposure.
+
+## Collateral risk
+
+Collateral can lose value rapidly, become non-transferable, or have unexpected token behavior. A conservative LLTV reduces but does not eliminate this risk.
+
+## Liquidity risk
+
+Lenders may be unable to withdraw while supplied assets are borrowed. Liquidators may also lack sufficient loan-token or trading liquidity to close unsafe positions efficiently.
+
+## Liquidation risk
+
+Borrowers can lose collateral when debt exceeds the LLTV limit. Interest, price changes, network conditions, and oracle updates can move a position into liquidation.
+
+## Bad debt risk
+
+Fast price moves, unavailable liquidation liquidity, or delayed execution can make collateral insufficient to repay debt. Recognized bad debt reduces the assets backing lenders in that market.
+
+## Permissionless market risk
+
+Anyone can create a market using an enabled IRM and LLTV. A created market is not necessarily reviewed or supported by Rhizome. Users must evaluate its tokens, oracle, parameters, liquidity, and integrations independently.
+
+## Rootstock and infrastructure risk
+
+Network congestion, reorganization, RPC failure, wallet failure, or indexer lag can delay or misrepresent actions. Current safety-critical state must be read from Rootstock, not inferred only from indexed data.

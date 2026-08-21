@@ -1,0 +1,20 @@
+---
+title: "Interest Rates"
+description: "How market utilization and the AdaptiveCurveIRM affect Rhizome rates."
+---
+
+Rhizome's initial markets use the upstream Morpho AdaptiveCurveIRM without modification.
+
+## Utilization
+
+Utilization is the share of supplied loan assets currently borrowed. The IRM uses utilization and its own state to determine the borrow rate. In general, higher utilization makes borrowing more expensive and encourages additional supply or repayment.
+
+Borrow interest accrues into total market borrow assets. A portion increases the value represented by lenders' supply shares. Any configured protocol fee is accounted for separately by the core.
+
+Rates are variable. An APY shown by an interface is a current estimate derived from protocol state, not a guaranteed return or fixed borrowing cost.
+
+## Accrual
+
+Morpho accrues interest when relevant market operations occur. Read applications may calculate pending accrual to present an estimate for the current timestamp, but onchain accounting is authoritative.
+
+TODO: Document the current fee setting and published rate calculations only after verifying them against live contract state and the production frontend implementation.

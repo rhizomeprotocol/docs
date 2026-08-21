@@ -1,0 +1,40 @@
+---
+title: "Data and Indexer"
+description: "The boundary between Rootstock state, indexed history, the data layer, and the frontend."
+---
+
+Rhizome uses a hybrid data architecture:
+
+```text
+Smart Contracts → Rootstock → Indexer → API/data layer → Frontend
+```
+
+This flow describes how data becomes available for querying and presentation. It does not make every layer equally authoritative.
+
+## Onchain protocol state
+
+The contracts on Rootstock are the source of truth for current markets, positions, balances, oracle prices and freshness, and transaction results. Clients should use Rootstock RPC for safety-critical reads, transaction simulation, and submission.
+
+## Indexed and historical data
+
+The indexer consumes Morpho events from Rootstock and builds queryable records for market discovery, account activity, liquidations, interest-accrual events, and transaction history. The current indexer uses Envio HyperIndex.
+
+Indexed data can lag, be unavailable, or temporarily differ during reorganization handling. It is a read model, not a transaction authority. A client must not use an indexed value to bypass a current onchain health check or simulation.
+
+## API and data layer
+
+The API/data layer exposes indexed entities to applications and may combine them with direct RPC reads. It should preserve provenance: consumers should be able to distinguish historical indexed values from current onchain values.
+
+TODO: Publish supported public endpoint URLs, schemas, availability expectations, and versioning when they are finalized.
+
+## Frontend presentation
+
+The frontend formats balances, rates, market metadata, and history for users. Presentation logic can estimate accrued values for display, but the frontend is not protocol state. Before submitting a transaction, it should refresh relevant RPC state and simulate the exact call.
+
+| Need | Preferred source |
+| --- | --- |
+| Market catalog and creation history | Indexer |
+| Account and liquidation history | Indexer |
+| Current market and position state | Rootstock RPC |
+| Oracle `price()` and `isFresh()` | Rootstock RPC |
+| Simulation and submission | Rootstock RPC and wallet |

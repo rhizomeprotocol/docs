@@ -1,0 +1,22 @@
+---
+title: "Borrowing"
+description: "How collateralized borrowing and repayment work in a Rhizome market."
+---
+
+To borrow, a user supplies the market's collateral token and borrows the market's loan token. The position must remain healthy under the market oracle and LLTV.
+
+At a high level, a position is healthy while:
+
+```text
+borrowed value <= collateral value × LLTV
+```
+
+Borrowed value grows as interest accrues. Collateral value can also change when the oracle price changes. Either can move a position closer to liquidation.
+
+## Repayment and collateral withdrawal
+
+A borrower can repay debt in loan tokens. Repaid debt stops accruing interest. Collateral can be withdrawn only if the remaining position is healthy after the withdrawal.
+
+The Rhizome stale-price guard can freeze price-dependent actions when required feeds are stale. Repayment remains available because it does not require a collateral price.
+
+<Note>The frontend is a transaction interface, not the source of protocol state. Wallets and integrations should read current state and simulate transactions against Rootstock before submission.</Note>

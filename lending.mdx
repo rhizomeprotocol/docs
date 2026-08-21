@@ -1,0 +1,18 @@
+---
+title: "Lending"
+description: "How loan-asset supply and withdrawals work in a Rhizome market."
+---
+
+Lenders supply a market's loan token to the Morpho core. The protocol records supply shares for the beneficiary address.
+
+Shares represent a proportional claim on the market's supplied assets. As borrowers accrue interest, the asset value represented by supply shares can increase. The contract converts between assets and shares using the market's current accounting and defined rounding rules.
+
+## Withdrawals
+
+A lender can withdraw loan assets by redeeming supply shares, subject to available market liquidity. Assets currently borrowed are not available for immediate withdrawal.
+
+Supplying does not require the lender to post collateral. Each supply position belongs to one market only.
+
+<Warning>Supply is exposed to market losses, including bad debt. Interest earned is not guaranteed, and displayed rates can change.</Warning>
+
+TODO: Add verified user-interface steps after the production interface and its supported transaction flow are documented for this site.

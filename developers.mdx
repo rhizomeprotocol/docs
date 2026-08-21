@@ -1,0 +1,26 @@
+---
+title: "Developers"
+description: "Technical starting points and integration rules for Rhizome developers."
+---
+
+Rhizome is composed of separate repositories for contracts, the frontend, and indexed data.
+
+## Source repositories
+
+- [Protocol contracts](https://github.com/rhizomeprotocol/rhizome) — canonical deployments, pinned upstream contracts, Rhizome oracle guard, scripts, and tests.
+- [Indexer](https://github.com/rhizomeprotocol/rhizome-indexer) — event ingestion and historical read models.
+- [Frontend](https://github.com/rhizomeprotocol/rhizome-ui) — user interface and wallet transaction flows.
+- [Documentation](https://github.com/rhizomeprotocol/docs) — this site.
+
+## Integration rules
+
+1. Identify a market using all five market parameters or its derived market ID.
+2. Source deployment addresses from the canonical manifest.
+3. Read current safety-critical state from Rootstock RPC.
+4. Check guarded-oracle freshness before price-dependent actions.
+5. Simulate the exact transaction before asking a wallet to submit it.
+6. Treat indexer responses as discovery and history, not final transaction authority.
+
+The deployed core exposes the standard pinned Morpho Blue interface. Rhizome's custom `StaleGuardedOracle` adds the `isFresh()` monitoring view around its inner oracle.
+
+TODO: Publish supported ABIs, package versions, example code, public RPC guidance, and API documentation when their stable distribution paths are confirmed.

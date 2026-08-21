@@ -1,0 +1,25 @@
+---
+title: "Oracles"
+description: "How Rhizome market prices are produced and guarded against stale data."
+---
+
+Each market oracle returns the value of one collateral unit in loan-token terms using the scale expected by Morpho Blue.
+
+Rhizome's initial markets use upstream `MorphoChainlinkOracleV2` contracts wrapped by the custom `StaleGuardedOracle`. The wrapper verifies that configured feeds match the inner oracle, checks that answers are positive, and rejects missing, future, or stale timestamps before returning the inner oracle price unchanged.
+
+The guard also exposes `isFresh()` for monitoring. A fresh timestamp does not prove that a reported price is economically correct.
+
+## Initial oracle design
+
+- WRBTC markets use a BTC/USD base feed.
+- RIF markets use a RIF/USD base feed.
+- USDT0 loan markets use a USDT/USD quote feed.
+- USDRIF loan markets use a fixed USD 1 quote because the evaluated USDRIF feed rejects contract callers.
+
+The fixed USDRIF quote does not protect lenders from a USDRIF depeg.
+
+## When an oracle reverts
+
+Borrowing, collateral withdrawal, and liquidation require the oracle price and therefore revert while the guard rejects it. Supplying loan assets, withdrawing available loan assets, and repaying do not require that price.
+
+See [Risks](/risks) before relying on any market oracle.

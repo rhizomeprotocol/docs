@@ -1,33 +1,26 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+# Rhizome documentation guidelines
 
-# Documentation project instructions
+This repository contains the Mintlify documentation for Rhizome.
 
-## About this project
+## Technical sources
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Use the Mintlify MCP server, `https://mcp.mintlify.com`, to edit content and settings via MCP
-- Use the Mintlify docs MCP server, `https://www.mintlify.com/docs/mcp`, to query information about using Mintlify via MCP
+- Treat the Rhizome protocol contracts and canonical deployment manifests as the source of truth.
+- Use Morpho documentation only as a conceptual reference. Verify Rhizome behavior against the pinned code.
+- Distinguish unmodified upstream Morpho components from Rhizome-specific Rootstock configuration and code.
+- Do not invent addresses, parameters, audits, APIs, SDKs, integrations, or deployment status. Add a clear `TODO` when a fact cannot be verified.
+- Treat Rootstock RPC as authoritative for current protocol state. Indexed data is for discovery and history.
 
-## Terminology
+## Writing
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- Write for readers who understand basic crypto concepts.
+- Keep pages short, precise, and neutral.
+- Avoid promotional language.
+- Do not copy upstream documentation verbatim.
+- Use sentence case for headings and concise page descriptions.
 
-## Style preferences
+## Mintlify
 
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
-
-## Content boundaries
-
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Pages are MDX files with YAML frontmatter.
+- Configuration and navigation live in `docs.json`.
+- Run `npx mint validate` after structural changes.
+- Mintlify generates `/llms.txt` and `/llms-full.txt` automatically from navigable pages and their descriptions.

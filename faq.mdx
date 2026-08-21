@@ -1,0 +1,40 @@
+---
+title: "FAQ"
+description: "Short answers to common questions about Rhizome."
+---
+
+## Is Rhizome a fork of Morpho Blue?
+
+The deployed lending core and AdaptiveCurveIRM use pinned upstream Morpho contracts without modification. Rhizome adds Rootstock deployment configuration, initial markets, oracle construction, and a custom stale-price guard.
+
+## Is liquidity shared between markets?
+
+No. Each market has separate supply, borrow, collateral, and position accounting.
+
+## Can market parameters change?
+
+No. The loan token, collateral token, oracle, IRM, and LLTV are immutable for an existing market. Different parameters define a different market.
+
+## Who can create a market?
+
+Anyone can call market creation, provided the market uses an IRM and LLTV already enabled in the Morpho core.
+
+## Does a listed market mean Rhizome endorses it?
+
+No. Permissionless markets require independent evaluation.
+
+## What happens if an oracle feed becomes stale?
+
+The Rhizome wrapper rejects the price. Borrowing, collateral withdrawal, and liquidation are frozen for that market until a fresh valid price is available. Repayment remains available.
+
+## Is indexer data authoritative?
+
+No. Use it for discovery and history. Use Rootstock RPC for current state, oracle checks, simulation, and transaction submission.
+
+## Are there official SDKs or APIs?
+
+TODO: Document supported SDKs and public APIs after their interfaces, versions, and support status are verified.
+
+## Has Rhizome been audited?
+
+TODO: Link independent Rhizome audit reports if and when they are published. Upstream Morpho reviews do not automatically cover Rhizome-specific code and configuration.

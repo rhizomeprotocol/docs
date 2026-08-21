@@ -1,0 +1,26 @@
+---
+title: "Contract Addresses"
+description: "How to locate and verify Rhizome deployments without relying on copied addresses."
+---
+
+<Warning>Do not treat this page as a deployment manifest. Verify every address against the canonical repository and Rootstock explorer before use.</Warning>
+
+## Rootstock mainnet
+
+| Component | Address | Verification source |
+| --- | --- | --- |
+| Morpho core | TODO: Publish from the canonical deployment manifest | `deployments/30.json` |
+| AdaptiveCurveIRM | TODO: Publish from the canonical deployment manifest | `deployments/30.json` |
+| Oracle factory | TODO: Publish from the canonical deployment manifest | `deployments/30.json` |
+| Oracle bundle | TODO: Publish from the canonical deployment manifest | `deployments/30.json` |
+| Market oracles | TODO: Publish per market from the canonical deployment manifest | `deployments/30.json` |
+
+| Field | Value |
+| --- | --- |
+| Network | Rootstock mainnet |
+| Chain ID | `30` |
+| Explorer | [Rootstock Blockscout](https://rootstock.blockscout.com) |
+
+The source-of-truth manifest is maintained in the [`rhizomeprotocol/rhizome`](https://github.com/rhizomeprotocol/rhizome/blob/main/deployments/30.json) repository. Integrations should load or reproduce the complete market parameters rather than relying on token symbols alone.
+
+TODO: Add testnet or other network sections only after their deployments are verified and recorded in a canonical manifest.
